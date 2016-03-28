@@ -16,6 +16,7 @@
 		121457FC1CA22C0700953418 /* XMPP_wechatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 121457FB1CA22C0700953418 /* XMPP_wechatTests.m */; };
 		121458071CA22C0700953418 /* XMPP_wechatUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 121458061CA22C0700953418 /* XMPP_wechatUITests.m */; };
 		1214581E1CA23DED00953418 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1214581D1CA23DED00953418 /* CoreData.framework */; };
+		1253A88F1CA91BE900D4DDE0 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 1253A88E1CA91BE900D4DDE0 /* GCDAsyncSocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		121458061CA22C0700953418 /* XMPP_wechatUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMPP_wechatUITests.m; sourceTree = "<group>"; };
 		121458081CA22C0700953418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1214581D1CA23DED00953418 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1253A88D1CA91BE900D4DDE0 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		1253A88E1CA91BE900D4DDE0 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,7 @@
 		121457E01CA22C0700953418 /* XMPP_wechat */ = {
 			isa = PBXGroup;
 			children = (
+				1253A88C1CA91BCD00D4DDE0 /* TCP */,
 				121457E41CA22C0700953418 /* AppDelegate.h */,
 				121457E51CA22C0700953418 /* AppDelegate.m */,
 				121457E71CA22C0700953418 /* ViewController.h */,
@@ -142,6 +146,15 @@
 				121458081CA22C0700953418 /* Info.plist */,
 			);
 			path = XMPP_wechatUITests;
+			sourceTree = "<group>";
+		};
+		1253A88C1CA91BCD00D4DDE0 /* TCP */ = {
+			isa = PBXGroup;
+			children = (
+				1253A88D1CA91BE900D4DDE0 /* GCDAsyncSocket.h */,
+				1253A88E1CA91BE900D4DDE0 /* GCDAsyncSocket.m */,
+			);
+			name = TCP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1253A88F1CA91BE900D4DDE0 /* GCDAsyncSocket.m in Sources */,
 				121457E91CA22C0700953418 /* ViewController.m in Sources */,
 				121457E61CA22C0700953418 /* AppDelegate.m in Sources */,
 				121457E31CA22C0700953418 /* main.m in Sources */,

@@ -7,16 +7,17 @@
 //
 
 #import "ViewController.h"
-#import <CoreData/CoreData.h>
-
+#import "GCDAsyncSocket.h" // socket三方框架
 
 #define  kWidth [UIScreen mainScreen].bounds.size.width
 #define  kHeight [UIScreen mainScreen].bounds.size.height
 
-@interface ViewController ()<NSStreamDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface ViewController ()<NSStreamDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,GCDAsyncSocketDelegate>
 {
     NSInputStream *_inputStream;
     NSOutputStream *_outputStream;
+    
+    GCDAsyncSocket *_socket;
 }
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
@@ -78,15 +79,16 @@
     }
     // 发送数据
     NSString *msg = [@"msg:" stringByAppendingString:txt];
-    [self sendDataToHost:msg];
+//    [self sendDataToHost:msg];
+        [_socket writeData:[msg dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:102];
     return YES;
 }
 
 #pragma mark - 发送数据
 - (void)sendDataToHost:(NSString *)string {
-    
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-    [_outputStream write:data.bytes maxLength:data.length];}
+    [_outputStream write:data.bytes maxLength:data.length];
+}
 
 #pragma mark - 表格的数据源
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -108,6 +110,7 @@
 
 #pragma mark - 连接
 - (IBAction)connectToServer:(id)sender {
+/*
     //ios里实现socket的连接，使用C语言
     
     // 1.与服务器三次握手建立连接
@@ -132,13 +135,81 @@
     // 主运行循环是监听网络状态
     [_outputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     [_inputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    
-    
+
     // 6.打开输入输出流
     [_inputStream open];
     [_outputStream open];
+ */
+    
+    //ios里实现socket的连接，使用C语言
+    
+    // 1.与服务器三次握手建立连接
+    NSString *host = @"127.0.0.1"; //ip
+    int port = 12345; // 端口号
+    
+    // 全局队列  主队列
+    // 创建一个socket对象
+    
+    // 全局队列 -》 代理的方法在子线程中被调用
+    _socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    
+//    // 主队列 -》 代理的方法在主线程中被调用
+//    _socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+   
+    // ？到底使用全局队列还是住队列
+    
+    // 连接
+    NSError *error;
+    [_socket connectToHost:host onPort:port error:&error];
+    if (error) {
+        NSLog(@"%@",error.localizedDescription);
+    }
+    
 }
 
+#pragma mark - Socket的代理
+#pragma mark - 代理 -连接成功
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port {
+    NSLog(@"%s",__func__);
+}
+
+#pragma mark - 断开连接
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
+    if (err) {
+        NSLog(@"连接失败 %@",err.localizedDescription);
+    } else {
+        NSLog(@"正常断开");
+    }
+}
+
+#pragma mark - 数据发送成功
+-(void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
+    NSLog(@"%s",__func__);
+    // 发送完数据手动读取
+    [sock readDataWithTimeout:-1 tag:tag];
+}
+
+#pragma mark - 读取数据
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
+    NSLog(@"%@",[NSThread currentThread]);
+    NSString *receiveStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (tag == 101) { //登录指定
+        
+    }
+    if (tag == 102) { //聊天数据
+        [self.msgArray addObject:receiveStr];
+        [self.chatTableView reloadData];
+    }
+    
+    
+    NSLog(@"%s %@",__func__,receiveStr);
+    
+
+}
+
+
+
+/*
 #pragma  mark - NSStreamDeleagate
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
 //    NSStreamEventNone = 0,
@@ -178,6 +249,7 @@
             break;
     }
 }
+*/
 
 #pragma mark - 读取服务器返回的数据
 - (void)readData {
@@ -202,14 +274,20 @@
 
 #pragma mark - 登录
 - (IBAction)loginBtnClick:(id)sender {
+/*
     // 发送登录请求 使用输出流（输出流是写数据的）
-    
     // 拼接登录的指令 iam：zhangsan
     NSString *loginStr = @"iam:zhangsan";
     // uint8_t *  字符数组
     NSData *data = [loginStr dataUsingEncoding:NSUTF8StringEncoding];
     [_outputStream write:data.bytes maxLength:data.length];
+ */
     
+    // 发送登录请求 使用输出流（输出流是写数据的）
+    
+    // 拼接登录的指令 iam：zhangsan
+    NSString *loginStr = @"iam:zhangsan";
+    [_socket writeData:[loginStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:101];
 }
 
 //移除通知
