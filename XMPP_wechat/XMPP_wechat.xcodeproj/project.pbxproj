@@ -15,6 +15,7 @@
 		121457F11CA22C0700953418 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 121457EF1CA22C0700953418 /* LaunchScreen.storyboard */; };
 		121457FC1CA22C0700953418 /* XMPP_wechatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 121457FB1CA22C0700953418 /* XMPP_wechatTests.m */; };
 		121458071CA22C0700953418 /* XMPP_wechatUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 121458061CA22C0700953418 /* XMPP_wechatUITests.m */; };
+		1214581E1CA23DED00953418 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1214581D1CA23DED00953418 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		121458021CA22C0700953418 /* XMPP_wechatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XMPP_wechatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		121458061CA22C0700953418 /* XMPP_wechatUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMPP_wechatUITests.m; sourceTree = "<group>"; };
 		121458081CA22C0700953418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1214581D1CA23DED00953418 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1214581E1CA23DED00953418 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +84,7 @@
 		121457D51CA22C0700953418 = {
 			isa = PBXGroup;
 			children = (
+				1214581D1CA23DED00953418 /* CoreData.framework */,
 				121457E01CA22C0700953418 /* XMPP_wechat */,
 				121457FA1CA22C0700953418 /* XMPP_wechatTests */,
 				121458051CA22C0700953418 /* XMPP_wechatUITests */,
@@ -498,6 +502,7 @@
 				1214580D1CA22C0700953418 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1214580E1CA22C0700953418 /* Build configuration list for PBXNativeTarget "XMPP_wechatTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +511,7 @@
 				121458101CA22C0700953418 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		121458111CA22C0700953418 /* Build configuration list for PBXNativeTarget "XMPP_wechatUITests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +520,7 @@
 				121458131CA22C0700953418 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

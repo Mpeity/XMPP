@@ -11,5 +11,8 @@
 @interface ViewController : UIViewController
 
 
+@property (weak, nonatomic) IBOutlet UITableView *chatTableView;
+
+
 @end
 
